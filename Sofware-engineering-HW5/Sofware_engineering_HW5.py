@@ -36,8 +36,7 @@ def calc_discount(num_aduit,num_child):
         num_aduit-=people_discount
     return num_aduit,num_child,people_count
 
-while True:
-    day,time,num_aduit,num_child=input_data()
+def calc_money(day,time,num_aduit,num_child):
     if day==1 and time==1:
         num_aduit,num_child,people_count=calc_discount(num_aduit,num_child)
         money=(week_price_aduit*num_aduit+num_child*week_price_child)
@@ -49,4 +48,10 @@ while True:
 
     if (people_count)>=10:
         money=money*0.95
-    print(round(money))
+    return money    
+
+if __name__ == "__main__":
+    while True:
+        day,time,num_aduit,num_child=input_data()
+        money=calc_money(day,time,num_aduit,num_child)
+        print(round(money))
