@@ -1,5 +1,11 @@
 import sys,re
-while True:
+week_price_aduit=268
+week_price_child=120
+holiday_price_aduit=368
+holiday_price_child=150
+holiday_bonus=1.1
+
+def input_data():
     while True:    
         day=input(u"Enter Weekday(1) or Holidays (2) : ")
         if re.match('[1-2]{1}',day) is None:
@@ -10,10 +16,36 @@ while True:
             print("Input Error")
             break
         num_aduit=input(u"Enter the numner of aduit(1-999) :")
-        if re.match('[1-9]{3}',num_aduit) is None:
+        if re.match('[1-9]{1,3}',num_aduit) is None:
             print("Input Error")
             break
         num_child=input(u"Enter the numner of child(1-999) :")
-        if re.match('[1-9]{3}',num_child) is None:
+        if re.match('[1-9]{1,3}',num_child) is None:
             print("Input Error")
             break
+        return int(day),int(time),int(num_aduit),int(num_child)
+
+while True:
+    day,time,num_aduit,num_child=input_data()
+    if day==1 and time==1:
+        people_discount=int((num_aduit+num_child)/3)
+        if num_child > people_discount:
+            num_child-=people_discount
+        else:
+            people_discount-=num_child
+            num_child=0
+            num_aduit-=people_discount
+        money=(week_price_aduit*num_aduit+num_child*week_price_child)
+
+    if day==2 or time==2:
+        people_discount=int((num_aduit+num_child)/3)
+        if num_child > people_discount:
+            num_child-=people_discount
+        else:
+            people_discount-=num_child
+            num_child=0
+            num_aduit-=people_discount
+
+        money=(holiday_price_aduit*num_aduit+num_child*holiday_price_child)*holiday_bonus
+
+        print(int(money))
